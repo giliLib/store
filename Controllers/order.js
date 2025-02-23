@@ -17,7 +17,7 @@ export async function getAllOrder(req, res) {
 //הוספת הזמנה 
 export async function addOrder(req, res) {
     let { body } = req;
-    if (!body.clientCode || !body.targetDate) {
+    if (!body.clientCode || !body.targetDate||!body.products) {
         return res.status(400).json({
             title: "Missing data in body",
             message: "clientCode and targetDate are required"
