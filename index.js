@@ -14,7 +14,7 @@ connectToDb();
 const app = express();
 
 // הגדרת CORS
-app.use(cors({ origin: "http://localhost:5500" }));
+app.use(cors());
 app.use(express.json());
 
 app.use("/api/user", userRouter);
