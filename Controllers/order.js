@@ -17,10 +17,10 @@ export async function getAllOrder(req, res) {
 //הוספת הזמנה 
 export async function addOrder(req, res) {
     let { body } = req;
-    if (!body.clientCode || !body.orderDate) {
+    if (!body.clientCode || !body.targetDate) {
         return res.status(400).json({
             title: "Missing data in body",
-            message: "clientCode and orderDate are required"
+            message: "clientCode and targetDate are required"
         });
     }
     try {
@@ -28,7 +28,7 @@ export async function addOrder(req, res) {
         console.log("Checking for duplicate order...");
         let duplicateOrder = await orderModel.findOne({
             clientCode: body.clientCode,
-            orderDate: body.orderDate,
+            targetDate: body.targetDate,
             "products._id": { $in: body.products.map(p => p._id) } 
         });
         console.log("Duplicate Order Result:", duplicateOrder);
@@ -36,7 +36,7 @@ export async function addOrder(req, res) {
         if (duplicateOrder) {
             return res.status(409).json({ 
                 title: "Duplicate order",
-                message: "An order with the same clientCode, orderDate, and products already exists"
+                message: "An order with the same clientCode, targetDate, and products already exists"
             });
         }
     
